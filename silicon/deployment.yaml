@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: silicon
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: silicon
+  template:
+    metadata:
+      labels:
+        app: silicon
+    spec:
+      containers:
+        - name: silicon
+          image: ghcr.io/cruciblesds/silicon:latest
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 500m
+              memory: 2Gi
+          readinessProbe:
+            httpGet:
+              path: /api/v1/healthcheck
+              port: 80
+            initialDelaySeconds: 3
+            periodSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /api/v1/healthcheck
+              port: 80
+            initialDelaySeconds: 3
+            periodSeconds: 3
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: silicon-config-env
+            - secretRef:
+                name: silicon-secret-env

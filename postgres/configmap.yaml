@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config-env
+data:
+  POSTGRES_DB: "silicon"
+  POSTGRES_USER: "silicon"

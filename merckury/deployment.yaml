@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: merckury
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: merckury
+  template:
+    metadata:
+      labels:
+        app: merckury
+    spec:
+      containers:
+        - name: merckury
+          image: ghcr.io/cruciblesds/merckury:latest
+          resources:
+            requests:
+              cpu: 50m
+              memory: 80Mi
+            limits:
+              cpu: 250m
+              memory: 250Mi
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: merckury-config-env

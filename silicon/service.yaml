@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: silicon
+spec:
+  selector:
+    app: silicon
+  ports:
+    - port: 80

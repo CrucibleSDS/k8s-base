@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: merckury
+spec:
+  selector:
+    app: merckury
+  ports:
+    - name: http-web
+      port: 80
+      targetPort: 3000
+      appProtocol: http

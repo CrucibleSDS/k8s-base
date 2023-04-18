@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: silicon-config-env
+data:
+  DEBUG: "false"
+  MEILI_SYNC_ON_START: "false"
